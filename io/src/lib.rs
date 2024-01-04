@@ -1,7 +1,7 @@
 
 #![no_std]
 use gstd::{ prelude::*, ActorId };
-use gmeta::{In,InOut,Metadata};
+use gmeta::{In,Out,InOut,Metadata};
 
 
 
@@ -57,6 +57,6 @@ impl Metadata for ContractMetadata{
      type Others = ();
      type Reply=();
      type Signal = ();
-     type State = CustomStruct;
+     type State = Out<CustomStruct>;
 
 }
