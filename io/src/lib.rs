@@ -93,6 +93,12 @@ pub struct DaoState {
     pub proposals: Vec<(u128, Proposal)>,
 }
 
+impl DaoState {
+    pub fn is_member(&self, account: &ActorId) -> bool{
+        self.members.iter().any(|(id, member)| id==account && member.shares!=0)
+    }
+}
+
 
 pub struct Member {
     pub shares: u128,
