@@ -34,10 +34,16 @@ fn init_state_mut() -> &'static mut InitStruct {
 
 // Create a public State
 #[derive(Default, Encode, Decode, TypeInfo)]
-pub struct CustomStruct {
-    pub firstfield: String,
-    pub secondfield: u128,
-    pub thirdfield: ActorId,
+struct EdgewareDao {
+    approved_token_program_id: ActorId,
+    period_duration: u64,
+    voting_period_length: u64,
+    grace_period_length: u64,
+    total_shares: u128,
+    members: HashMap<ActorId, Member>,
+    proposal_id: u128,
+    locked_funds: u128,
+    proposals: HashMap<u128, Proposal>,
 }
 
 // Create a implementation on State
