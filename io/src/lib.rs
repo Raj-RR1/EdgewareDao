@@ -7,24 +7,60 @@ use gmeta::{In,Out,InOut,Metadata};
 
 // 1. Create your own Actions
 #[derive(Encode, Decode, TypeInfo, Hash, PartialEq, PartialOrd, Eq, Ord, Clone, Copy, Debug)]
-pub enum Action {
+pub enum DaoAction {
     
     // Add Actions
-    FirstAction,
-    SecondAction,
-    ThirdAction,
+    Deposit{
+        amount: u128,
+    },
+    SubmitFundingProposal{
+        applicant: ActorId,
+        amount: u128,
+        quorum: u128,
+        details: String,
+    },
+    SubmitVote{
+        proposal_id: u128,
+        vote: Vote,
+    },
+    RageQuit{
+        amount: u128,
+    },
+    ProcessProposal{
+        proposal_id: u128,
+    }
     
 }
 
 
 // 2. Create your own Events
 #[derive(Encode, Decode, TypeInfo, Hash, PartialEq, PartialOrd, Eq, Ord, Clone, Copy, Debug)]
-pub enum  Event {
+pub enum  DaoEvent {
     
     // Add Events(Example)
-    FirstEvent,
-    SecondEvent,
-    ThirdEvent,
+    Deposit{
+     member: ActorId,
+    },
+    SubmitFundingProposal{
+        proposer: ActorId,
+        applicant: ActorId,
+        proposal_id: u128,
+        amount: u128,
+    },
+    SubmitVote{
+        account: ActorId,
+        proposal_id: u128,
+        vote: Vote,
+    },
+    RageQuit{
+        member: ActorId,
+        amount: u128,
+    },
+    ProcessProposal {
+        applicant: ActorId,
+        proposal_id: u128,
+        did_pass: bool,
+    },
 }
 
 
