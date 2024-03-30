@@ -8,7 +8,7 @@ include!(concat!(env!("OUT_DIR"), "/wasm_binary.rs"));
 
 
 // 1. Create the main state as a static variable.
-static mut STATE:Option<CustomStruct> = None;
+static mut EDGEWAREDAO:Option<EdgewareDao> = None;
 
 // 1.1 Create the init state.
 static mut INIT:Option<InitStruct> = None;
@@ -46,7 +46,7 @@ struct EdgewareDao {
     proposals: HashMap<u128, Proposal>,
 }
 
-static mut EDGEWAREDAO:Option<EdgewareDao> = None;
+//static mut EDGEWAREDAO:Option<EdgewareDao> = None;
 
 // Create a implementation on State
 impl CustomStruct {
@@ -63,20 +63,24 @@ impl CustomStruct {
 #[no_mangle]
 extern "C" fn init () {
 
-    let config: InitStruct = msg::load().expect("Unable to decode InitStruct");
+    let config: InitEdgewareDao = msg::load().expect("Unable to decode InitEdgewareDAO");
 
-    if config.ft_program_id.is_zero() {
-        panic!("InitStruct program address can't be 0");
-    }
+    // if config.ft_program_id.is_zero() {
+    //     panic!("InitStruct program address can't be 0");
+    // }
 
-    let init = InitStruct {
-        ft_program_id: config.ft_program_id
+    let edgewaredao = EdgewareDao {
+        approved_token_program_id: config.approved_token_program_id,
+        voting_period_length: config.voting_period_length,
+        period_duration: config.period_duration,
+        ..EdgewareDao::default()
+
     };
 
     
 
     unsafe {
-        INIT = Some(init);
+        EDGEWAREDAO = Some(edgewaredao);
     }
 
 
