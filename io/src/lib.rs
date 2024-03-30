@@ -41,10 +41,11 @@ pub struct CustomStruct {
 #[derive(Decode, Encode, TypeInfo)]
 #[codec(crate = gstd::codec)]
 #[scale_info(crate = gstd::scale_info)]
-pub struct InitStruct {
-   
-    // Example:
-    pub ft_program_id: ActorId,
+pub struct InitEdgewareDao {
+    pub approved_token_program_id: ActorId,
+    pub voting_period_length: u64,
+    pub period_duration: u64,
+    pub grace_period_length: u64,
 }
 
 
