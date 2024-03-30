@@ -30,12 +30,26 @@ pub enum  Event {
 
 // 3. Create your own Struct
 #[derive(Default, Encode, Decode, Clone, TypeInfo)]
-pub struct CustomStruct {
-    firstfield: String,
-    secondfield: u128,
-    thirdfield: ActorId,
-   
+pub struct Proposal {
+    pub proposer: ActorId,
+    pub applicant: ActorId,
+    pub yes_votes: u128,
+    pub no_votes: u128,
+    pub quorum: u128,
+    pub amount: u128,
+    pub processed: bool,
+    pub did_pass: bool,
+    pub details: String,
+    pub starting_period: u64,
+    pub ended_at: u64,
+    pub votes_by_member: Vec<(ActorId, Vote)>,
 }
+
+pub struct Member {
+    pub shares: u128,
+    pub highest_index_yes_vote: Option<u128>,
+}
+
 
 // 4. Create your init Struct
 #[derive(Decode, Encode, TypeInfo)]
