@@ -46,6 +46,8 @@ struct EdgewareDao {
     proposals: HashMap<u128, Proposal>,
 }
 
+static mut EDGEWAREDAO:Option<EdgewareDao> = None;
+
 // Create a implementation on State
 impl CustomStruct {
     #[allow(dead_code)]
@@ -140,7 +142,7 @@ async fn main(){
 #[no_mangle]
 extern "C" fn state() {
     let state = unsafe {
-        STATE.get_or_insert(Default::default())
+       EDGEWAREDAO.take().expect("Unexpected error in taking state")
     };
-    msg::reply(state, 0).expect("Failed to share state");
+    msg::reply(state.into(), 0).expect("Failed to share state");
 }
