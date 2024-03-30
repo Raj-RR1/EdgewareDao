@@ -81,6 +81,19 @@ pub struct Proposal {
     pub votes_by_member: Vec<(ActorId, Vote)>,
 }
 
+pub struct DaoState {
+    pub approved_token_program_id: ActorId,
+    pub period_duration: u64,
+    pub voting_period_length: u64,
+    pub grace_period_length: u64,
+    pub total_shares: u128,
+    pub members: Vec<(ActorId, Member)>,
+    pub proposal_id: u128,
+    pub locked_funds: u128,
+    pub proposals: Vec<(u128, Proposal)>,
+}
+
+
 pub struct Member {
     pub shares: u128,
     pub highest_index_yes_vote: Option<u128>,
@@ -104,7 +117,7 @@ pub struct EdgewareDaoMetadata;
 // 5. Define the structure of actions, events and state for your metadata.
 impl Metadata for EdgewareDaoMetadata{
      type Init = In<InitEdgewareDao>;
-     type Handle = InOut<DaoAction,DaoEventEvent>;
+     type Handle = InOut<DaoAction,DaoEvent>;
      type Others = ();
      type Reply=();
      type Signal = ();
