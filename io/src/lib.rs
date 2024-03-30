@@ -99,15 +99,15 @@ pub struct InitEdgewareDao {
 }
 
 
-pub struct ContractMetadata;
+pub struct EdgewareDaoMetadata;
 
 // 5. Define the structure of actions, events and state for your metadata.
-impl Metadata for ContractMetadata{
-     type Init = In<InitStruct>;
-     type Handle = InOut<Action,Event>;
+impl Metadata for EdgewareDaoMetadata{
+     type Init = In<InitEdgewareDao>;
+     type Handle = InOut<DaoAction,DaoEventEvent>;
      type Others = ();
      type Reply=();
      type Signal = ();
-     type State = Out<CustomStruct>;
+     type State = Out<DaoState>;
 
 }
